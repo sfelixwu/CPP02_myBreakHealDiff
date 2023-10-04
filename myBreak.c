@@ -17,7 +17,19 @@ int
 main
 (int argc, char **argv)
 {
-  FILE *f = NULL;
+  // question -- why did I set NULL for the File pointer?
+  // in some environments, variable ==> default is NULL, BUT, some others not guaranteed.
+  // NULL == 0x0
+  // if I open the file successfully, then the value of f will be changed to NOT NULL
+  // run-time if I try to access a unopen FILE NULL pointer
+
+  printf("size of FILE = %lu, size of FILE * = %lu, size of void * = %lu\n",
+	 sizeof(FILE), sizeof(FILE *), sizeof(void *));
+  
+  FILE *f = NULL; // 0x0
+  // segmentation fault
+  // first page (virtual page) must not be used
+  
   FILE *tf = NULL;
   int chunk_size;
   char *fname = NULL;
